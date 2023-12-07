@@ -75,8 +75,39 @@ Setting up Nginx as a reverse proxy is recommended for public applications.
   ```bash
   sudo apt install nginx
   ```
+Add the following configuration to this file. Replace myapp, example.com, and 5000 with your application's name, your domain name, and the port where Gunicorn is listening, respectively.
+
+  
 - Configure Nginx:
   Create and link a new Nginx configuration file, and set up Nginx to forward requests to Gunicorn.
+  - Step 1: Create a New Nginx Configuration File
+      Create a new configuration file for your Flask application in Nginx's sites-available directory. You can name         this file after your domain or application, like myapp.
+    ```sudo nano /etc/nginx/sites-available/myapp
+```
+
+
+server {
+    listen 80;
+    server_name example.com www.example.com;
+
+    location / {
+        proxy_pass http://localhost:5000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+
+sudo ln -s /etc/nginx/sites-available/myapp /etc/nginx/sites-enabled
+
+sudo nginx -t
+sudo systemctl restart nginx
+
+sudo ufw allow 'Nginx Full'
+
+Create a symbolic link of the file in the sites-enabled directory:
+
 - Restart Nginx:
   ```bash
   sudo systemctl restart nginx
