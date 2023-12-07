@@ -83,6 +83,7 @@ Add the following configuration to this file. Replace myapp, example.com, and 50
   - Step 1: Create a New Nginx Configuration File
       Create a new configuration file for your Flask application in Nginx's sites-available directory. You can name         this file after your domain or application, like myapp.
 
+ sudo nano /etc/nginx/sites-available/myapp
     ```
     sudo nano /etc/nginx/sites-available/myapp
     ```
