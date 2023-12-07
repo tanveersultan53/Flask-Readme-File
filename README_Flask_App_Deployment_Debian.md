@@ -88,7 +88,7 @@ Add the following configuration to this file. Replace myapp, example.com, and 50
     sudo nano /etc/nginx/sites-available/myapp
     ```
 
-
+```
 server {
     listen 80;
     server_name example.com www.example.com;
@@ -101,15 +101,19 @@ server {
         proxy_set_header X-Forwarded-Proto $scheme;
     }
 }
+```
+# Create a symbolic link of the file in the sites-enabled directory:
 
-sudo ln -s /etc/nginx/sites-available/myapp /etc/nginx/sites-enabled
+``` sudo ln -s /etc/nginx/sites-available/myapp /etc/nginx/sites-enabled ```
 
-sudo nginx -t
-sudo systemctl restart nginx
+# check the syntax of file
+``` sudo nginx -t ```
+# restart our ngnix service
 
-sudo ufw allow 'Nginx Full'
+``` sudo systemctl restart nginx ```
 
-Create a symbolic link of the file in the sites-enabled directory:
+``` sudo ufw allow 'Nginx Full' ```
+
 
 - Restart Nginx:
   ```bash
